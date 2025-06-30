@@ -10,18 +10,33 @@ export function zobrazPoznamky(){
         li.textContent = poznamka.text
         noteList.appendChild(li)
 
-        let button = document.createElement("button")
-        button.textContent = "zmazať"
-        li.appendChild(button)
+        let btnZmaz = document.createElement("button")
+        btnZmaz.textContent = "zmazať"
+        btnZmaz.style.marginLeft = "0.5em"
+        li.appendChild(btnZmaz)
 
-        button.addEventListener("click", function(){
-            let odpoved = confirm("Isto chcete vymazať tento záznam?")
+        btnZmaz.addEventListener("click", function(){
+            let odpoved = confirm("Určite chcete vymazať tento záznam?")
             if(!odpoved)return
 
            odstranPoznamku(index)
            zobrazPoznamky()
     
         })
+
+        let btnUprav = document.createElement("button")
+           btnUprav.textContent = "Upraviť"
+           btnUprav.style.marginLeft = "0.5em"
+           li.appendChild(btnUprav)
+
+        btnUprav.addEventListener("click", function(){
+            let novyText = prompt(`Zadaj nový text poznámky: ${poznamka.text}`)
+            if(!novyText)return
+
+            poznamky[index].text = novyText
+            ulozVsetkyPoznamky(poznamky)
+            zobrazPoznamky()
+           })
         
     });
 }
@@ -31,3 +46,4 @@ export function odstranPoznamku(index){
     poznamky.splice(index, 1)
     ulozVsetkyPoznamky(poznamky)
 }
+
